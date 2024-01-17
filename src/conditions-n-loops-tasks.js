@@ -112,8 +112,35 @@ function isIsoscelesTriangle(a, b, c) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  if (num < 1 || num > 39) {
+    throw new Error('Number out of range. Must be between 1 and 39.');
+  }
+
+  let result = '';
+  let currentNum = num;
+
+  while (currentNum > 0) {
+    if (currentNum >= 10) {
+      result += 'X';
+      currentNum -= 10;
+    } else if (currentNum >= 5) {
+      if (currentNum === 9) {
+        result += 'IX';
+        currentNum -= 9;
+      } else {
+        result += 'V';
+        currentNum -= 5;
+      }
+    } else if (currentNum === 4) {
+      result += 'IV';
+      currentNum -= 4;
+    } else {
+      result += 'I';
+      currentNum -= 1;
+    }
+  }
+  return result;
 }
 
 /**
@@ -198,8 +225,16 @@ function convertNumberToString(numberStr) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const { length } = str;
+
+  for (let i = 0; i < length / 2; i += 1) {
+    if (str[i] !== str[length - 1 - i]) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -216,8 +251,16 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let total = -1;
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      total = i;
+    }
+  }
+
+  return total;
 }
 
 /**
@@ -235,8 +278,17 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let currentNum = Math.abs(num);
+
+  while (currentNum > 0) {
+    const lastDigit = currentNum % 10;
+    if (lastDigit === digit) {
+      return true;
+    }
+    currentNum = Math.floor(currentNum / 10);
+  }
+  return false;
 }
 
 /**
